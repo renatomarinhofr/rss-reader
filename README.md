@@ -96,18 +96,3 @@ Para parar e remover os containers:
 ```bash
 docker compose down
 ```
-
-## Fluxo de como tudo se conecta
-
-1. O usuário informa a URL do feed no frontend React.
-2. O frontend chama `GET /api/feed?url=...` no backend.
-3. O caso de uso `fetchfeed` baixa o XML via `FeedFetcher`, normaliza com o **gofeed** e registra o snapshot (com hora) no PostgreSQL.
-4. Os feeds consultados são armazenados e podem ser listados em `/api/feeds/recent`; em caso de erro de rede, o cache é usado como fallback.
-5. O handler expõe DTOs JSON que a UI consome para montar cards com HTML sanitizado.
-
-## Roadmap sugerido
-
-- Autenticação + favoritos por usuário.
-- Scheduler para atualização periódica de feeds e alertas.
-- Observabilidade (Prometheus/OpenTelemetry) e métricas por fonte.
-- Internacionalização e exportação (por exemplo, salvar em formato EPUB/PDF).
